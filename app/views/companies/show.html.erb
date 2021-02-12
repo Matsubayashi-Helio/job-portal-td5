@@ -1,0 +1,13 @@
+<h1><%= @company.name %></h1>
+
+<dl>
+    <dd>Sobre: <%= @company.about %></dd>
+    <dd>Site: <%= @company.site %></dd>
+    <dd>Endereço: <%= @company.address %></dd>
+    <dd>CNPJ: <%= @company.cnpj %></dd>
+    <dd>Redes Sociais: <%= link_to @company.social_network %></dd>
+    <dd>Logomarca: <%# image_tag(@company.cover) %></dd>
+    <img src="<%= url_for(@company.cover) %>" alt="">
+</dl>
+
+<h3><%= link_to 'Voltar', companies_path %></h3>

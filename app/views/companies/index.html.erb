@@ -1,10 +1,12 @@
 <h1>Empresas Cadastradas</h1>
 <% @companies.each do |company| %>
 <div>
-    <%= company.name %>
+    <%= link_to company.name, company_path(company) %>
 </div>
 <div>
     <%= company.about %>
 </div>
 <hr>
 <% end %>
+
+<h3><%= link_to 'Voltar', root_path %></h3>
