@@ -1,0 +1,11 @@
+<% @company_jobs.job.each do |job|%>
+    <dd>Title:<%= job.title %></dd>
+    <dd>Descrição:<%= job.description %></dd>
+    <dd>Remuneração:<%= job.wage %></dd>
+    <dd>Nivel:<%= job.level %></dd>
+    <dd>Requisitos:<%= job.requirements %></dd>
+    <dd>Quantidade de vagas:<%= job.quantity %></dd>
+    <dd>Data limite:<%= I18n.localize(job.date, format: :date) %></dd>
+    <dd>Companhia:<%= job.company.name %></dd>
+    <hr>
+<% end %>

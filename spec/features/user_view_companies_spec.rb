@@ -22,10 +22,6 @@ feature 'User view companies' do
                                 # social_network: ['facebook.com/xcode', 'twitter.com/xcode','instagram.com/xcode']
         company_xcode.cover.attach(io: File.open(Rails.root.join('public','logo','company-xcode-logo.jfif')), filename: 'company-xcode-logo.jfif')
         
-        # job = Jobs.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
-        #                 wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
-        #                 quantity: 2, date:'31/12/2050' status: 'active', company: company)
-
         visit root_path
         click_on 'Empresas Cadastradas'
 

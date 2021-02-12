@@ -3,5 +3,15 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :companies, only: [:index, :show]
+  resources :companies, only: [:index, :show] do
+    # resources :jobs, only: [:index] do
+    #   collection do
+    #     get 'company_jobs'
+    #   end
+    # end
+    member do
+      get 'company_jobs'
+    end
+  end
+  resources :jobs
 end
