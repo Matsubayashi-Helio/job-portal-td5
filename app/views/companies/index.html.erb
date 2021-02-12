@@ -1,0 +1,10 @@
+<h1>Empresas Cadastradas</h1>
+<% @companies.each do |company| %>
+<div>
+    <%= company.name %>
+</div>
+<div>
+    <%= company.about %>
+</div>
+<hr>
+<% end %>
