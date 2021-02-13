@@ -25,6 +25,7 @@ feature 'User view companies' do
         visit root_path
         click_on 'Empresas Cadastradas'
 
+        # TODO add id or classes to tags and use whitin or have_css
         expect(current_path).to eq companies_path
         expect(page).to have_content('IT Consulting')
         expect(page).to have_content('IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.')
