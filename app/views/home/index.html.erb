@@ -2,3 +2,11 @@
 <h2>Welcome to the portal where you can find the jod you always wanted!</h2>
 
 <%= link_to 'Empresas Cadastradas', companies_path %>
+<%= link_to 'Para Empresas' %>
+
+<% if user_signed_in? %>
+    <%= link_to 'Sair'%>
+<% else %>
+
+    <%= link_to 'Login', user_session_path %>
+<% end %>
