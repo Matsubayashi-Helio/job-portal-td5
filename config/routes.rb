@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :companies, only: [:index, :show] do
+  resources :companies, only: [:index, :show, :new] do
     # resources :jobs, only: [:index] do
     #   collection do
     #     get 'company_jobs'

@@ -28,23 +28,23 @@
 
   <div class="field">
     <%= f.label :first_name %><br />
-    <%= f.email_field :first_name, autofocus: true, autocomplete: "first-name" %>
+    <%= f.text_field :first_name, autofocus: true%>
   </div>
 
   <div class="field">
     <%= f.label :last_name %><br />
-    <%= f.email_field :last_name, autofocus: true, autocomplete: "last-name" %>
+    <%= f.text_field :last_name, autofocus: true%>
   </div>
 
   <div class="field">
     <%= f.label :role %><br />
-    <%= f.email_field :role, autofocus: true, autocomplete: "role" %>
+    <%= f.text_field :role, autofocus: true%>
   </div>
 
 
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Signup" %>
   </div>
 <% end %>
 
