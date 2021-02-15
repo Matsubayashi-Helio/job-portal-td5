@@ -14,6 +14,19 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
+
+
+    <% if employee_signed_in? %>
+      <%# current_user.email %>
+      <%= link_to 'Sair', destroy_employee_session_path, method: :delete %>
+      <p>Anuncie vagas <%# employee.company.name %></p>
+    <% else %>
+      <%= link_to 'Entrar', new_employee_session_path %>
+      <%= link_to 'Sign Up', new_employee_registration_path %>
+    <% end %>
+
+    <%= link_to 'Para Empresas', new_employee_registration_path %>
+
     <%= yield %>
   </body>
 </html>
