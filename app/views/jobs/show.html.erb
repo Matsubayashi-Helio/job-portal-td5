@@ -1,0 +1,24 @@
+<dl>
+    <dt>Title:</dt>
+    <dd><%= @job.title %></dd>
+
+    <dt>Description:</dt>
+    <dd><%= @job.description %></dd>
+    
+    <dt>Wage:</dt>
+    <dd><%= @job.wage %></dd>
+
+    <dt>Level:</dt>
+    <dd><%= @job.level %></dd>
+
+    <dt>Requirements:</dt>
+    <dd><%= @job.requirements %></dd>
+
+    <dt>Quantity:</dt>
+    <dd id="quantity"><%= @job.quantity %></dd>
+
+    <dt>Date:</dt>
+    <dd><%= I18n.localize(@job.date, format: :custom)%></dd>
+</dl>
+
+<%= link_to 'Editar', edit_job_path(@job) %>

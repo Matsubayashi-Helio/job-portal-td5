@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Employees::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create, :new]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -12,11 +12,6 @@ class Employees::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    employee = Employee.new(configure_sign_up_params)
-    company_email = employee.company_email
-    company = Company.where(email_provider: company_email)
-    employee.company = company
-    employee.save
   end
 
   # GET /resource/edit
@@ -43,7 +38,7 @@ class Employees::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params

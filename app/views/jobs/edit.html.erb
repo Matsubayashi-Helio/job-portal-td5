@@ -1,0 +1,39 @@
+<%= form_with model: @job do |f| %>
+<div>
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: @job.title %>
+</div>
+
+<div>
+    <%= f.label :description %>
+    <%= f.text_field :description, placeholder: @job.description %>
+</div>
+
+<div>
+    <%= f.label :wage %>
+    <%= f.text_field :wage, placeholder: @job.wage %>
+</div>
+
+<div>
+    <%= f.label :level %>
+    <%= f.text_field :level, placeholder: @job.level %>
+</div>
+
+<div>
+    <%= f.label :requirements %>
+    <%= f.text_field :requirements, placeholder: @job.requirements%>
+</div>
+
+<div>
+    <%= f.label :quantity %>
+    <%= f.text_field :quantity, placeholder: @job.quantity %>
+</div>
+
+<div>
+    <%= f.label :date %>
+    <%= f.text_field :date, placeholder: @job.date %>
+</div>
+
+    <%= f.submit 'Editar' %>
+<% end %>
+

@@ -5,6 +5,7 @@ class Employee < ApplicationRecord
          :recoverable, :rememberable, :validatable
   belongs_to :company, optional: true
 
+  # attr_accessor :first_name, :last_name, :role
   validates :first_name, :last_name, :role, :email, :password, presence: true
 
   def company_email

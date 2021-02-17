@@ -1,0 +1,9 @@
+<dl>
+    <% @jobs.each do | job| %>
+        <dl>Title:</dl>
+        <dd><%= link_to job.title, job_path(job) %></dd>
+        <dt>Company:</dt>
+        <dd><%= job.company.name %></dd>
+        <hr>
+    <% end %>
+</dl>
