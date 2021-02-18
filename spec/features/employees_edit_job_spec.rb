@@ -47,8 +47,30 @@ feature 'Employees edit a job' do
 
     end
 
-    scenario 'and only employees of the company can edit job' do
-        
+    # TODO Only show jobs for the employee's company
+    scenario 'and employees of other companies cannot edit' do
+        company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
+                                social_network: 'twitter.com/itc', 
+                                about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
+                                address: 'Rua dos Santos, 84 - São Paulo-SP', email_provider: '@itc.com')
+        # employee_itc = Employee.create!(email: 'ana@itc.com', password: '123456', first_name:'Ana', last_name:'Silva', company: company_itc, role: 'Coordenadora RH', admin: true)
+
+        job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
+                        wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
+                        quantity: 2, date:'31/12/2050', status: 'active', company: company_itc)
+
+        company_xcode = Company.create!(name: 'XCode Entertainment', cnpj: '94221637000151', site: 'www.xcode.com', 
+                                        social_network: 'twitter.com/xcode', 
+                                        about: 'XCode is a game developer studio that focus on VR and AR tecnologies for more immersion in the gameplay',
+                                        address: 'Avenida XCode, 01 - São Paulo-SP, Edifício 0, 1º andar', email_provider: '@xcode.com')
+        employee_xcode = Employee.create!(email: 'ana@itc.com', password: '123456', first_name:'Ana', last_name:'Silva', company: company_xcode, role: 'Coordenadora RH', admin: true)
+
+        login_as employee_xcode
+        visit jobs_path
+        click_on 'IT support'
+        click_on 'Editar'
+
+        expect(current_path).to eq jobs_path
     end
 
 end

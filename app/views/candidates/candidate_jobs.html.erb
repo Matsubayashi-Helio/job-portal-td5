@@ -1,0 +1,12 @@
+<h1>All jobs applied!</h1>
+
+<% @jobs.each do |j| %>
+    <dt>Title:</dt>
+    <dd><%= j.job.title %></dd>
+
+    <dd>Status:</dd>
+    <dl><%= j.status %></dl>
+    <hr>
+
+<% end %>
+<%# @cjobs.status %>

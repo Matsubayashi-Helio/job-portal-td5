@@ -21,11 +21,19 @@
       <%= link_to 'Sair', destroy_employee_session_path, method: :delete %>
       <p>Anuncie vagas <%# employee.company.name %></p>
     <% else %>
-      <%= link_to 'Entrar', new_employee_session_path %>
-      <%= link_to 'Signup', new_employee_registration_path %>
+      <%= link_to 'Login Empresas', new_employee_session_path %>
+      <%# link_to 'Signup', new_employee_registration_path %>
     <% end %>
 
-    <%= link_to 'Para Empresas', new_employee_registration_path %>
+    <% if candidate_signed_in? %>
+      <%# current_user.email %>
+      <%= link_to 'Sair', destroy_candidate_session_path, method: :delete %>
+      <p>Anuncie vagas <%# employee.company.name %></p>
+    <% else %>
+      <%= link_to 'Login Candidato', new_candidate_session_path %>
+      <%# link_to 'Signup', new_employee_registration_path %>
+    <% end %>
+
 
     <%= yield %>
   </body>

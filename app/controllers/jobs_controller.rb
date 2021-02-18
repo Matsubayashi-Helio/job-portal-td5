@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-    before_action :authenticate_employee!
+    before_action :authenticate_employee!, only: [:new, :create, :edit, :update]
 
     def index
 
@@ -25,8 +25,13 @@ class JobsController < ApplicationController
     end
 
     def edit
-        @job = Job.find(params[:id])
-        redirect_to jobs_path notice("Cannot edit this job!") unless current_employee.company =  job.company
+        job = Job.find(params[:id])
+        if current_employee.company != job.company
+            # notice("Cannot edit this job!")
+            redirect_to jobs_path 
+        else
+            @job = Job.find(params[:id])
+        end
 
     end
 
@@ -37,6 +42,19 @@ class JobsController < ApplicationController
         else
             render 'edit'
         end
+    end
+
+    def apply
+        candidate = Candidate.find(current_candidate.id)
+        job = Job.find(params[:id])
+        CandidateJob.create!(candidate: candidate, job:job, status:'pending')
+        redirect_to job_applied_candidate_job_path(candidate, job)
+    end
+
+    def job_applied
+        candidate = Candidate.find(params[:candidate_id])
+        # @cjobs = candidate.candidate_jobs
+        @jobs = candidate.candidate_jobs
     end
 
     private

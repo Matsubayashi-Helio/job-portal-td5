@@ -1,0 +1,16 @@
+<h1>Acompanhe candidatura</h1>
+
+<% @jobs.each do |j| %>
+    <dl>Job:</dl>
+    <dd><%= j.job.title %></dd>
+
+    <dl>Description:</dl>
+    <div><%= j.job.description %></div>
+
+    <dl>Company:</dl>
+    <dd><%= j.job.company.name %></dd>
+
+    <dl>Status:</dl>
+    <dd><%= j.status %></dd>
+
+<% end %>

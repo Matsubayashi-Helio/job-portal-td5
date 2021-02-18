@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_210420) do
+ActiveRecord::Schema.define(version: 2021_02_17_204748) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,36 @@ ActiveRecord::Schema.define(version: 2021_02_15_210420) do
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "candidate_jobs", force: :cascade do |t|
+    t.integer "candidate_id", null: false
+    t.integer "job_id", null: false
+    t.string "message"
+    t.integer "status"
+    t.decimal "wage"
+    t.date "beginning_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["candidate_id"], name: "index_candidate_jobs_on_candidate_id"
+    t.index ["job_id"], name: "index_candidate_jobs_on_job_id"
+  end
+
+  create_table "candidates", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "cpf"
+    t.integer "phone"
+    t.string "bio"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_candidates_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_candidates_on_reset_password_token", unique: true
   end
 
   create_table "companies", force: :cascade do |t|
@@ -87,6 +117,8 @@ ActiveRecord::Schema.define(version: 2021_02_15_210420) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "candidate_jobs", "candidates"
+  add_foreign_key "candidate_jobs", "jobs"
   add_foreign_key "employees", "companies"
   add_foreign_key "jobs", "companies"
 end
