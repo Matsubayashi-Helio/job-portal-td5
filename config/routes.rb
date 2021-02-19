@@ -19,7 +19,11 @@ Rails.application.routes.draw do
   resources :jobs , only:[:index, :new, :create, :show, :edit, :update] do
     member do
       get 'apply'
-      get 'aplicants'
+      get 'applicants'
+      get 'applicants/:candidate_id', to: 'jobs#applicant', as: 'applicant'
+      # resources :candidates, only:[] do
+      #   get 'applicant'
+      # end
     end
   end
 

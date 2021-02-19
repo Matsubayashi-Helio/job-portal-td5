@@ -55,14 +55,23 @@ class JobsController < ApplicationController
         end
         CandidateJob.create!(candidate: candidate, job:job, status:'pending')
         redirect_to job_applied_candidate_job_path(candidate, job)
-
-
     end
 
     def job_applied
         candidate = Candidate.find(params[:candidate_id])
         # @cjobs = candidate.candidate_jobs
         @jobs = candidate.candidate_jobs
+    end
+
+    def applicants
+        job = Job.find(params[:id])
+        @applicants = job.candidate_jobs
+    end
+
+    # TODO Look for better way to find status on candidate_jobs
+    def applicant
+        @candidate = Candidate.find(params[:candidate_id])
+        @candidate_jobs =  @candidate.candidate_jobs.find_by(job_id: params[:id])
     end
 
     private
