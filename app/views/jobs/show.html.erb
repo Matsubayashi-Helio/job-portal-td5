@@ -1,3 +1,5 @@
+<div><%= flash[:notice] %></div>
+
 <dl>
     <dt>Title:</dt>
     <dd><%= @job.title %></dd>
@@ -23,3 +25,4 @@
 
 <%= link_to 'Editar', edit_job_path(@job) %>
 <%= link_to 'Candidatar-se', apply_job_path(@job) %>
+<%= link_to 'Analisar-candidaturas', aplicants_job_path%>

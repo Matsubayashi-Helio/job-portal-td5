@@ -47,8 +47,16 @@ class JobsController < ApplicationController
     def apply
         candidate = Candidate.find(current_candidate.id)
         job = Job.find(params[:id])
+            
+        if job.inactive?
+            # notice('Cannot apply for job')
+            redirect_to job, notice:'Cannot apply for jobs'
+            return
+        end
         CandidateJob.create!(candidate: candidate, job:job, status:'pending')
         redirect_to job_applied_candidate_job_path(candidate, job)
+
+
     end
 
     def job_applied

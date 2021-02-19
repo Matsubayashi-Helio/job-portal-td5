@@ -7,5 +7,6 @@
 
 <%= link_to 'Ver-vagas', jobs_path %>
 
-
-<%= link_to 'Acompanhar-candidaturas', candidate_jobs_candidate_path(current_candidate) %>
+<% if candidate_signed_in?%>
+    <%= link_to 'Acompanhar-candidaturas', candidate_jobs_candidate_path(current_candidate) %>
+<% end%>
