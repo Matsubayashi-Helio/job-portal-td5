@@ -1,10 +1,16 @@
 class CandidateJobsController < ApplicationController
+    
+    # TODO Must not allow wage and beginning_date if :rejected
+    # TODO Message must be obligatory
     def update
         # puts params
         candidate_job = CandidateJob.find(params[:id])
+        candidate_job.update(candidate_job_params)
+        
         if params[:reject]
-            candidate_job.update(candidate_job_params)
-            candidate_job.status = 'rejected'
+            candidate_job.rejected!
+        else
+            candidate_job.prop_send!
         end
 
         candidate_job.save

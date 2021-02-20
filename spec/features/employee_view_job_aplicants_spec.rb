@@ -135,6 +135,7 @@ feature 'Employee view job aplicants' do
         expect(candidate_jobs_to_be_rejected.status).to eq 'rejected'
     end
 
+    # TODO Change beginning_date from datetime to date
     scenario 'and send proposal to the candidate' do
         company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                     social_network: 'twitter.com/itc', 
@@ -146,7 +147,7 @@ feature 'Employee view job aplicants' do
                             wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
                             quantity: 2, date:'31/12/2050', status: 'inactive', company: company_itc)
 
-        candidate_prop_send = Candidate.create!(email: 'maria@email.com', password: '123456', first_name: 'Maria', 
+        candidate_prop_sent = Candidate.create!(email: 'maria@email.com', password: '123456', first_name: 'Maria', 
                                             last_name:'Silva', cpf: 45596090042, phone:153485648, 
                                             bio:'Atuei por dois anos como analista de suporte.')
 
@@ -163,17 +164,19 @@ feature 'Employee view job aplicants' do
         click_on 'IT support'
         click_on 'Analisar-candidaturas'
         click_on 'Maria'
-        fill_in 'Message', with: 'We really liked your profile, and it would be fantastic to have you with us. 
-                                As already informed, the wage is around entry level. We are sending the details of the job with this message. 
-                                Please confirm if you are ok with these terms'
-        fill_in 'Beginning Date', with: '31/12/2021'
+        fill_in 'Message', with: 'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms'
+        fill_in 'Beginning date', with: '31/12/2021'
         fill_in 'Wage', with: '2000'
-        click_on 'Send-proposal'
+        click_on 'Send-proposition'
 
         expect(current_path).to eq applicants_job_path(job_itc)
-        expect(page).to have_content('Maria')
-        expect(page).to have_content('maria@email.com')
-        expect(page).to have_content('Atuei por dois anos como analista de suporte.')
-        expect(page).to have_content('pro-sent')
+        # expect(page).to have_content('Maria')
+        # expect(page).to have_content('maria@email.com')
+        # expect(page).to have_content('Atuei por dois anos como analista de suporte.')
+        # expect(page).to have_content('prop_send')
+        expect(candidate_jobs_prop_send.reload.message).to eq 'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms'
+        expect(candidate_jobs_prop_send.status).to eq 'prop_send'
+        expect(candidate_jobs_prop_send.wage).to eq 2000
+        expect(candidate_jobs_prop_send.beginning_date).to eq '31/12/2021'
     end
 end
