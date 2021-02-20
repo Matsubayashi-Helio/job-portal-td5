@@ -72,6 +72,7 @@ class JobsController < ApplicationController
     def applicant
         @candidate = Candidate.find(params[:candidate_id])
         @candidate_jobs =  @candidate.candidate_jobs.find_by(job_id: params[:id])
+        # puts @candidate_jobs.status
     end
 
     private

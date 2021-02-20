@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get 'apply'
       get 'applicants'
       get 'applicants/:candidate_id', to: 'jobs#applicant', as: 'applicant'
+      post 'feedback_applicant'
       # resources :candidates, only:[] do
       #   get 'applicant'
       # end
@@ -38,4 +39,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+
+
+  resources :candidate_jobs
+
 end

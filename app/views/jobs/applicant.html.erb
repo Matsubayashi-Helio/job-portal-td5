@@ -17,5 +17,28 @@
 
     <dl>CPF:</dl>
     <dd><%= @candidate.cpf %></dd>
-    
+</div>
+
+<h2>Feedback:</h2>
+
+<div>
+    <%= form_with model: @candidate_jobs do |f| %>
+        <div>
+            <%= f.label :message %>
+            <%= f.text_area :message, size: '20x10' %>
+        </div>
+
+        <div>
+            <%= f.label :wage %>
+            <%= f.number_field :wage %>
+        </div>
+
+        <div>
+            <%= f.label :beginning_date %>
+            <%= f.date_field :beginning_date %>
+        </div>
+
+        <%= f.submit 'Reject-applicant', name: 'reject' %>
+        <%# f.submit 'Send-proposition' %>
+    <% end %>
 </div>

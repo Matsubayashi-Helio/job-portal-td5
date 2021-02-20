@@ -106,23 +106,12 @@ feature 'Employee view job aplicants' do
                             wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
                             quantity: 2, date:'31/12/2050', status: 'inactive', company: company_itc)
 
-
-
         candidate_to_be_rejected = Candidate.create!(email: 'alan@email.com', password: '123456', first_name: 'Alan', 
                                             last_name:'Santos', cpf: 15612367058, phone:164584652, 
                                             bio:'Procurando oportunidade no mercado e com vontade de aprender.')
 
-        candidate_prop_sent = Candidate.create!(email: 'maria@email.com', password: '123456', first_name: 'Maria', 
-                                            last_name:'Silva', cpf: 45596090042, phone:153485648, 
-                                            bio:'Atuei por dois anos como analista de suporte.')
-
-
         candidate_jobs_to_be_rejected = CandidateJob.create!(candidate: candidate_to_be_rejected, job: job_itc, 
                                                     message:'', status:'pending', wage:'', beginning_date:'')
-
-        candidate_jobs_prop_sent = CandidateJob.create!(candidate: candidate_prop_sent, job: job_itc, 
-                                                        message: 'We would like to talk more about your previous experience as a analist.', 
-                                                        status: 'prop_send', wage: 2500, beginning_date:'31/12/2021')
 
         employee = Employee.create!(email: 'ana@itc.com', password: '123456', first_name:'Ana', 
                                     last_name:'Silva', company: company_itc, 
@@ -135,13 +124,15 @@ feature 'Employee view job aplicants' do
         click_on 'Analisar-candidaturas'
         click_on 'Alan'
         fill_in 'Message', with: 'Sorry to inform, but you do not have the requirements we are looking for at the moment.'
-        click_on 'Reject-aplicant'
+        click_on 'Reject-applicant'
 
-        expect(current_path).to eq applicants_job_path
+        expect(current_path).to eq applicants_job_path(candidate_to_be_rejected)
         expect(page).to have_content('Alan')
         expect(page).to have_content('alan@email.com')
         expect(page).to have_content('Procurando oportunidade no mercado e com vontade de aprender.')
         expect(page).to have_content('rejected')
+        expect(candidate_jobs_to_be_rejected.reload.message).to eq 'Sorry to inform, but you do not have the requirements we are looking for at the moment.'
+        expect(candidate_jobs_to_be_rejected.status).to eq 'rejected'
     end
 
     scenario 'and send proposal to the candidate' do
