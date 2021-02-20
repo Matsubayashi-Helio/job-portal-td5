@@ -60,7 +60,7 @@ class JobsController < ApplicationController
     def job_applied
         candidate = Candidate.find(params[:candidate_id])
         # @cjobs = candidate.candidate_jobs
-        @jobs = candidate.candidate_jobs
+        @job = candidate.candidate_jobs.find_by(job_id: params[:id])
     end
 
     def applicants

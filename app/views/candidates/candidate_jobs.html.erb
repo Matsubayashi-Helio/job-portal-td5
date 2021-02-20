@@ -2,7 +2,7 @@
 
 <% @jobs.each do |j| %>
     <dt>Title:</dt>
-    <dd><%= j.job.title %></dd>
+    <dd><%= link_to j.job.title, job_applied_candidate_job_path(@candidate, j.job) %></dd>
 
     <dd>Status:</dd>
     <dl><%= j.status %></dl>

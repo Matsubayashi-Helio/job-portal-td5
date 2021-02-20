@@ -1,16 +1,29 @@
 <h1>Acompanhe candidatura</h1>
 
-<% @jobs.each do |j| %>
     <dl>Job:</dl>
-    <dd><%= j.job.title %></dd>
+    <dd><%= @job.job.title %></dd>
 
     <dl>Description:</dl>
-    <div><%= j.job.description %></div>
+    <div><%= @job.job.description %></div>
+
+    <dl>Requirements:</dl>
+    <dd><%= @job.job.requirements %></dd>
 
     <dl>Company:</dl>
-    <dd><%= j.job.company.name %></dd>
+    <dd><%= @job.job.company.name %></dd>
 
     <dl>Status:</dl>
-    <dd><%= j.status %></dd>
+    <dd><%= @job.status %></dd>
 
+    <h2>Feedback:</h2>
+
+    <dl>Message:</dl>
+    <dd><%= @job.message %></dd>
+
+<% if @job.prop_send!%>
+    <dl>Wage:</dl>
+    <dd><%= @job.wage %></dd>
+
+    <dl>Beginning_date:</dl>
+    <dd><%= @job.beginning_date %></dd>
 <% end %>
