@@ -73,6 +73,8 @@ class JobsController < ApplicationController
         @candidate = Candidate.find(params[:candidate_id])
         @candidate_jobs =  @candidate.candidate_jobs.find_by(job_id: params[:id])
         # puts @candidate_jobs.status
+        # @status = [ pending, prop_send, date_confirmed, prop_rejected, date_rejected, rejected, accepted]
+        @status = { pending: 'pending', prop_send:2, date_confirmed:4, prop_rejected:1, date_rejected:3, rejected:9, accepted: 10}
     end
 
     private

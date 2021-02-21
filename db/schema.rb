@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_081606) do
+ActiveRecord::Schema.define(version: 2021_02_21_073023) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -115,10 +115,24 @@ ActiveRecord::Schema.define(version: 2021_02_20_081606) do
     t.index ["company_id"], name: "index_jobs_on_company_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "candidate_job_id", null: false
+    t.integer "candidate_id"
+    t.integer "employee_id"
+    t.integer "sender"
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["candidate_id"], name: "index_messages_on_candidate_id"
+    t.index ["candidate_job_id"], name: "index_messages_on_candidate_job_id"
+    t.index ["employee_id"], name: "index_messages_on_employee_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "candidate_jobs", "candidates"
   add_foreign_key "candidate_jobs", "jobs"
   add_foreign_key "employees", "companies"
   add_foreign_key "jobs", "companies"
+  add_foreign_key "messages", "candidate_jobs"
 end

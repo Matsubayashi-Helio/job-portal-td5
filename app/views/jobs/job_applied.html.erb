@@ -27,3 +27,10 @@
     <dl>Beginning_date:</dl>
     <dd><%= @job.beginning_date %></dd>
 <% end %>
+
+<%= form_with do |f| %>
+    <%= f.label :message %>
+    <%= f.text_area :message, size: "60x20" %>
+
+    <%= f.collection_radio_buttons :status, CandidateJob.statuses, :second, :first %>
+<% end %>
