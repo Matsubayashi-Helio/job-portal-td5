@@ -1,12 +1,7 @@
 require 'rails_helper'
 
 feature 'Employees edit a job' do
-    scenario 'and employee is signed in' do
-        visit root_path
-        click_on 'Ver-vagas'
 
-        expect(current_path).to eq new_employee_session_path
-    end
 
     scenario 'successfully' do
         company = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
@@ -19,7 +14,7 @@ feature 'Employees edit a job' do
                         wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
                         quantity: 2, date:'31/12/2050', status: 'active', company: company)
 
-        login_as employee
+        login_as(employee, :scope => :employee)
         visit root_path
         click_on 'Ver-vagas'
         click_on 'IT support'
@@ -65,7 +60,7 @@ feature 'Employees edit a job' do
                                         address: 'Avenida XCode, 01 - São Paulo-SP, Edifício 0, 1º andar', email_provider: '@xcode.com')
         employee_xcode = Employee.create!(email: 'ana@itc.com', password: '123456', first_name:'Ana', last_name:'Silva', company: company_xcode, role: 'Coordenadora RH', admin: true)
 
-        login_as employee_xcode
+        login_as(employee_xcode, :scope => :employee)
         visit jobs_path
         click_on 'IT support'
         click_on 'Editar'

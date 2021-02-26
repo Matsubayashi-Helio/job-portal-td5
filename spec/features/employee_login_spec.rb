@@ -9,8 +9,7 @@ feature 'Employee login' do
         employee = Employee.create!(email: 'ana@itc.com', password: '123456', first_name:'Ana', last_name:'Silva', company: company, role: 'Coordenadora RH', admin: true)
 
         visit root_path
-        click_on 'Para Empresas'
-        click_on 'Entrar'
+        click_on 'Login Empresas'
         within('form') do
             fill_in 'Email', with: 'ana@itc.com'
             fill_in 'Password', with: '123456'
@@ -34,8 +33,8 @@ feature 'Employee login' do
         visit root_path
         click_on 'Sair'
 
-        expect(page).to have_content('Anuncie vagas')
-        expect(page).to have_link('Sair')
-        expect(page).not_to have_link('Entrar')
+        expect(page).to have_content('Registre-uma-vaga')
+        expect(page).to have_link('Login Empresas')
+        expect(page).not_to have_link('Sair')
     end
 end

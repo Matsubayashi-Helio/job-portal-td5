@@ -1,3 +1,6 @@
+
+
+
 <h1>Acompanhe candidatura</h1>
 
     <dl>Job:</dl>
@@ -18,7 +21,9 @@
     <h2>Feedback:</h2>
 
     <dl>Message:</dl>
-    <dd><%= @job.message %></dd>
+    <% if @message %>
+        <dd><%= @message.sent_message %></dd>
+    <% end %>
 
 <% if @job.prop_send!%>
     <dl>Wage:</dl>
@@ -28,9 +33,19 @@
     <dd><%= @job.beginning_date %></dd>
 <% end %>
 
-<%= form_with do |f| %>
-    <%= f.label :message %>
-    <%= f.text_area :message, size: "60x20" %>
+<%= form_with model: Message.new do |f| %>
 
-    <%= f.collection_radio_buttons :status, CandidateJob.statuses, :second, :first %>
+
+
+    <%= f.hidden_field :candidate_job_value, value: @job.id %>
+    <%= f.hidden_field :sender, value: 'candidate' %>
+    <%= f.label :sent_message %>
+    <%= f.text_area :sent_message, size: "60x20" %>
+
+    <%= fields_for :candidate_job do |s| %>
+        <%= s.collection_radio_buttons :status, CandidateJob.statuses, :first, :first %>
+    <% end %>
+
+    <%= f.submit 'Submit' %>
 <% end %>
+

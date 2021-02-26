@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Employee sign up' do
+xfeature 'Employee sign up' do
 
     scenario 'for an existing company' do
         company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 

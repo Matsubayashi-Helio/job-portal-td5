@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :jobs , only:[:index, :new, :create, :show, :edit, :update] do
     member do
-      get 'apply'
+      post 'apply'
       get 'applicants'
       get 'applicants/:candidate_id', to: 'jobs#applicant', as: 'applicant'
       post 'feedback_applicant'
@@ -36,11 +36,12 @@ Rails.application.routes.draw do
     resources :jobs, only:[] do
       member do
         get 'job_applied'
+        # post 'job_applied'
       end
     end
   end
 
-
+  resources :messages
 
   resources :candidate_jobs
 

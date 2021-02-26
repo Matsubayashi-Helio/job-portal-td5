@@ -20,9 +20,14 @@
     <dd id="quantity"><%= @job.quantity %></dd>
 
     <dt>Date:</dt>
-    <dd><%= I18n.localize(@job.date, format: :custom)%></dd>
+    <dd><%= I18n.localize(@job.date, format: :date)%></dd>
+
+
+    <dt>Company:</dt>
+    <dd><%= @job.company.name %></dd>
+
 </dl>
 
 <%= link_to 'Editar', edit_job_path(@job) %>
-<%= link_to 'Candidatar-se', apply_job_path(@job) %>
+<%= link_to 'Candidatar-se', apply_job_path(@job), method: :post %>
 <%= link_to 'Analisar-candidaturas', applicants_job_path(@job)%>
