@@ -64,7 +64,7 @@ class JobsController < ApplicationController
 
 
 
-        @message = Message.find_by(candidate_job: @job)
+        @message = Message.where(candidate_job: @job)
     end
 
     def applicants

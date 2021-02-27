@@ -6,7 +6,7 @@ class CandidateJobsController < ApplicationController
     def update
         # puts params
         candidate_job = CandidateJob.find(params[:id])
-        candidate_job.update(candidate_job_params)
+        candidate_job.update!(candidate_job_params)
         
         if params[:reject]
             candidate_job.rejected!
@@ -14,7 +14,7 @@ class CandidateJobsController < ApplicationController
             candidate_job.prop_send!
         end
 
-        candidate_job.save
+        candidate_job.save!
         redirect_to applicants_job_path(candidate_job)
     end
 

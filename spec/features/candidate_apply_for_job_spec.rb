@@ -169,7 +169,7 @@ feature 'Candidate apply for a job' do
         expect(page).to have_content('IT Consulting')
         expect(page).to have_content('prop_send')
         expect(page).to have_content('2000')
-        expect(page).to have_content('2021-12-31')
+        expect(page).to have_content('31/12/2021')
         expect(page).to have_content('We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms')
     end
 
@@ -192,18 +192,20 @@ feature 'Candidate apply for a job' do
 
         Message.create!(candidate_job: prop_sent_candidate_jobs, sender: 'employee', employee: employee, sent_message:'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms')
 
-        login_as candidate
+        login_as(candidate, :scope => :candidate)
         visit root_path
         click_on 'Acompanhar-candidaturas'
         click_on 'IT support'
-        fill_in 'Sent message', with: 'Really appreciate the return. It saddens me to say, but I will have to decline the offer because of a personal reason'
-        choose('prop_rejected')
+        # fill_in 'Sent message', with: 'Really appreciate the return. It saddens me to say, but I will have to decline the offer because of a personal reason'
+        # choose('prop_rejected')
+        
         click_on 'Submit'
 
         message = Message.last
+        cj = CandidateJob.last
         expect(Message.count).to eq 2
         expect(current_path).to eq job_applied_candidate_job_path(candidate, prop_sent_job_itc)
-        expect(prop_sent_candidate_jobs.reload.status).to eq 'prop_rejected'
+        expect(cj.reload.status).to eq 'prop_rejected'
         expect(page).to have_content('We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms')
         expect(message.reload.sender).to eq 'candidate'
         expect(message.reload.sent_message).to eq 'Really appreciate the return. It saddens me to say, but I will have to decline the offer because of a personal reason'

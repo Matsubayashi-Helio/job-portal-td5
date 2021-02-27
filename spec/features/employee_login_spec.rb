@@ -11,7 +11,7 @@ feature 'Employee login' do
         visit root_path
         click_on 'Login Empresas'
         within('form') do
-            fill_in 'Email', with: 'ana@itc.com'
+            fill_in 'E-mail', with: 'ana@itc.com'
             fill_in 'Password', with: '123456'
             click_on 'Log in'
         end

@@ -21,8 +21,8 @@
     <h2>Feedback:</h2>
 
     <dl>Message:</dl>
-    <% if @message %>
-        <dd><%= @message.sent_message %></dd>
+    <% if @message.any? %>
+        <dd><%= @message.last.sent_message %></dd>
     <% end %>
 
 <% if @job.prop_send!%>
@@ -30,14 +30,12 @@
     <dd><%= @job.wage %></dd>
 
     <dl>Beginning_date:</dl>
-    <dd><%= @job.beginning_date %></dd>
+    <dd><%= I18n.localize(@job.beginning_date, format: :date, default: '') %></dd>
+    <dd><%# @job.beginning_date %></dd>
 <% end %>
 
 <%= form_with model: Message.new do |f| %>
-
-
-
-    <%= f.hidden_field :candidate_job_value, value: @job.id %>
+    <%= f.hidden_field :candidate_job, value: @job.id %>
     <%= f.hidden_field :sender, value: 'candidate' %>
     <%= f.label :sent_message %>
     <%= f.text_area :sent_message, size: "60x20" %>
@@ -47,5 +45,13 @@
     <% end %>
 
     <%= f.submit 'Submit' %>
+<% end %>
+
+
+<%= form_with model: @job, url: candidate_job_path(@job), method: "patch" do |f| %>
+    <%= f.label :status %>
+    <%= f.collection_radio_buttons :status, CandidateJob.statuses, :first, :first %>
+
+    <%= f.submit %>
 <% end %>
 

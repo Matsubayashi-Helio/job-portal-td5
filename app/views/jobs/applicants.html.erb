@@ -1,3 +1,5 @@
+
+
 <% @applicants.each do |c| %>
 <dl>Name:</dl>
 <dd><%=link_to c.candidate.first_name, applicant_job_path(c.job, c.candidate)%></dd>

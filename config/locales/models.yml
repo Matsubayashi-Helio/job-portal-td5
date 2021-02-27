@@ -1,0 +1,67 @@
+pt-BR:
+  activerecord:
+    models:
+      job:
+        one: Vaga
+        other: Vagas
+      employee:
+        one: Colaborador
+        other: Colaboradores
+      company:
+        one: Empresa
+        other: Empresas
+      candidate:
+        one: Candidato
+        other: Candidatos
+      message:
+        one: Mensagem
+        other: Mensagens
+      candidate_job:
+        one: Vaga de Candidato
+        other: Vagas de Candidatos
+    attributes:
+      job:
+        title: Título
+        description: Descrição
+        wage: Remuneração
+        level: Nível
+        requirements: Requisitos
+        quantity: Quantidade
+        date: Data limite
+        status:
+          active: Ativo
+          inactive: Inativo
+      employee:
+        email: E-mail
+        first_name: Primeiro nome
+        last_name: Sobrenome
+        role: Ocupação
+        admin: Administrador
+      company:
+        name: Nome
+        cnpj: CNPJ
+        site: Site
+        social_network: Redes sociais
+        about: Sobre
+        address: Endereço
+        email_provider: Dominio de e=mail
+      candidate:
+        email: E-mail
+        first_name: Primeiro Nome
+        last_name: Sobrenome
+        cpf: CPF
+        phone: Telefone
+        bio: Biografia
+      message:
+        sender: Remetente
+        sent_message: Mensagem enviada
+      candidate_job:
+        statuses:
+          pending: Pendente
+          prop_send: Proposta enviada
+          date_confirmed: Data confirmada
+          prop_rejected: Proposta rejeitada
+          date_rejected: Data rejeitada
+          rejected: Rejeitado
+          accepted: Aceito
+

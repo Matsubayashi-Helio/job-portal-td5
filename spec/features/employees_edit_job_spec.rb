@@ -20,14 +20,14 @@ feature 'Employees edit a job' do
         click_on 'IT support'
         click_on 'Editar'
 
-        fill_in 'Title', with: 'IT support junior'
-        fill_in 'Description', with: 'Will act as a front line man on repairs. May need to work on weekends.'
-        fill_in 'Wage', with: '2500'
-        fill_in 'Level', with: 'Junior I'
-        fill_in 'Requirements', with: 'Good with people, self-taught, proactive. Previous experience is a plus.'
-        fill_in 'Quantity', with: '3'
-        fill_in 'Date', with: '31/12/2025'
-        click_on 'Editar'
+        fill_in 'Título', with: 'IT support junior'
+        fill_in 'Descrição', with: 'Will act as a front line man on repairs. May need to work on weekends.'
+        fill_in 'Remuneração', with: '2500'
+        fill_in 'Nível', with: 'Junior I'
+        fill_in 'Requisitos', with: 'Good with people, self-taught, proactive. Previous experience is a plus.'
+        fill_in 'Quantidade', with: '3'
+        fill_in 'Data limite', with: '31/12/2025'
+        click_on 'Atualizar Vaga'
 
         expect(current_path).to eq job_path(job_itc)
         expect(page).to have_content('IT support junior')

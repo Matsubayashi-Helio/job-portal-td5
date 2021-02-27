@@ -36,14 +36,14 @@ feature 'Employee register job' do
         visit root_path
         click_on 'Registre-uma-vaga'
 
-        fill_in 'Title', with: 'IT support'
-        fill_in 'Description', with:'Will act as a front line man on repairs'
-        fill_in 'Wage', with: 3000
-        fill_in 'Level', with: 'Junior'
-        fill_in 'Requirements', with: 'Good with people, self-taught, proactive'
-        fill_in 'Quantity', with: 2
-        fill_in 'Date', with: '31/12/2050'
-        click_on 'Submit'
+        fill_in 'Título', with: 'IT support'
+        fill_in 'Descrição', with:'Will act as a front line man on repairs'
+        fill_in 'Remuneração', with: 3000
+        fill_in 'Nível', with: 'Junior'
+        fill_in 'Requisitos', with: 'Good with people, self-taught, proactive'
+        fill_in 'Quantidade', with: 2
+        fill_in 'Data limite', with: '31/12/2050'
+        click_on 'Criar Vaga'
 
         job = Job.last
         # expect(job).to exist
