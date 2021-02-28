@@ -21,24 +21,55 @@
 
 <h2>Feedback:</h2>
 
-<div>
-    <%= form_with model: @candidate_jobs do |f| %>
-        <div>
-            <%= f.label :message %>
-            <%= f.text_area :message, size: '20x10' %>
-        </div>
-
-        <div>
-            <%= f.label :wage %>
-            <%= f.number_field :wage %>
-        </div>
-
-        <div>
-            <%= f.label :beginning_date %>
-            <%= f.date_field :beginning_date %>
-        </div>
-
-        <%= f.submit 'Reject-applicant', name: 'reject' %>
-        <%= f.submit 'Send-proposition' %>
+<dl>Mensagem:</dl>
+    <% if @message.any? %>
+        <% @message.each do |m| %>
+            <div><strong><%= m.sender %>:</strong> <%= m.sent_message %></div>
+        <% end %>
     <% end %>
+
+<%= form_with model: Message.new do |f| %>
+    <%= f.hidden_field :candidate_job, value: @candidate_jobs.id %>
+    <%= f.hidden_field :sender, value: 'employee' %>
+    <%= f.label :sent_message, 'Mensagem'%>
+    <%= f.text_area :sent_message, size: "60x10" %>
+
+    
+    <%= f.fields_for @candidate_jobs do |form| %>
+        <div>
+            <%= form.label :wage %>
+            <%= form.number_field :wage %>
+        </div>
+        <div>
+            <%= form.label :beginning_date %>
+            <%= form.date_field :beginning_date %>
+        </div>
+    <% end %>
+    
+    <div>
+    <%= f.label :status %>
+    <%= f.select :status, [["Enviar Proposta", "Proposta Enviada"], 
+                        ["Rejeitar Candidatura", "Candidatura Rejeitada"], 
+                        ["Contratar Candidato", "Candidato Contratado"]] %>
+    </div>
+    <%= f.submit 'Enviar Mensagem'%>
+<% end %>
+
+
+
+<div>
+    <%# form_with model: @candidate_jobs do |f| %>
+        <div>
+            <%# f.label :wage %>
+            <%# f.number_field :wage %>
+        </div>
+
+        <div>
+            <%# f.label :beginning_date %>
+            <%# f.date_field :beginning_date %>
+        </div>
+
+        <%# f.submit 'Reject-applicant', name: 'reject' %>
+        <%# f.submit 'Send-proposition' %>
+    <%# end %>
 </div>

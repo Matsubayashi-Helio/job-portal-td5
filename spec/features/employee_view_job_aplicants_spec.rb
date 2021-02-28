@@ -35,7 +35,7 @@ feature 'Employee view job aplicants' do
                                     last_name:'Silva', company: company_itc, 
                                     role: 'Coordenadora RH', admin: true)
 
-        login_as employee
+        login_as(employee, :scope => :employee)
         visit root_path
         click_on 'Ver-vagas'
         click_on 'IT support'
@@ -79,7 +79,7 @@ feature 'Employee view job aplicants' do
                                     last_name:'Silva', company: company_itc, 
                                     role: 'Coordenadora RH', admin: true)
 
-        login_as employee
+        login_as(employee, :scope => :employee)
         visit root_path
         click_on 'Ver-vagas'
         click_on 'IT support'
@@ -117,7 +117,7 @@ feature 'Employee view job aplicants' do
                                     last_name:'Silva', company: company_itc, 
                                     role: 'Coordenadora RH', admin: true)
 
-        login_as employee
+        login_as(employee, :scope => :employee)
         visit root_path
         click_on 'Ver-vagas'
         click_on 'IT support'
@@ -152,13 +152,13 @@ feature 'Employee view job aplicants' do
                                             bio:'Atuei por dois anos como analista de suporte.')
 
         candidate_jobs_prop_send = CandidateJob.create!(candidate: candidate_prop_sent, job: job_itc, 
-                                                        message: '', status: 'pending', wage:'' , beginning_date:'')
+                                                        message: '', status: 'Pending', wage:'' , beginning_date:'')
 
         employee = Employee.create!(email: 'ana@itc.com', password: '123456', first_name:'Ana', 
                                     last_name:'Silva', company: company_itc, 
                                     role: 'Coordenadora RH', admin: true)
 
-        login_as employee
+        login_as(employee, :scope => :employee)
         visit root_path
         click_on 'Ver-vagas'
         click_on 'IT support'
@@ -166,7 +166,7 @@ feature 'Employee view job aplicants' do
         click_on 'Maria'
         fill_in 'Message', with: 'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms'
         fill_in 'Beginning date', with: '31/12/2021'
-        fill_in 'Wage', with: '2000'
+        fill_in 'Remuneração', with: '2000'
         click_on 'Send-proposition'
 
         expect(current_path).to eq applicants_job_path(job_itc)
@@ -175,7 +175,7 @@ feature 'Employee view job aplicants' do
         # expect(page).to have_content('Atuei por dois anos como analista de suporte.')
         # expect(page).to have_content('prop_send')
         expect(candidate_jobs_prop_send.reload.message).to eq 'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms'
-        expect(candidate_jobs_prop_send.status).to eq 'prop_send'
+        expect(candidate_jobs_prop_send.status).to eq 'prop-sent'
         expect(candidate_jobs_prop_send.wage).to eq 2000
         # expect(candidate_jobs_prop_send.beginning_date).to eq '31/12/2021'
     end

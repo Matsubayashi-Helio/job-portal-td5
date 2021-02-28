@@ -196,16 +196,16 @@ feature 'Candidate apply for a job' do
         visit root_path
         click_on 'Acompanhar-candidaturas'
         click_on 'IT support'
-        # fill_in 'Sent message', with: 'Really appreciate the return. It saddens me to say, but I will have to decline the offer because of a personal reason'
-        # choose('prop_rejected')
+        fill_in 'Mensagem', with: 'Really appreciate the return. It saddens me to say, but I will have to decline the offer because of a personal reason'
+        select('Rejeitar Proposta', :from => 'Status')
         
-        click_on 'Submit'
+        click_on 'Enviar Mensagem'
 
         message = Message.last
         cj = CandidateJob.last
         expect(Message.count).to eq 2
         expect(current_path).to eq job_applied_candidate_job_path(candidate, prop_sent_job_itc)
-        expect(cj.reload.status).to eq 'prop_rejected'
+        expect(cj.reload.status).to eq 'Proposta Rejeitada'
         expect(page).to have_content('We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms')
         expect(message.reload.sender).to eq 'candidate'
         expect(message.reload.sent_message).to eq 'Really appreciate the return. It saddens me to say, but I will have to decline the offer because of a personal reason'

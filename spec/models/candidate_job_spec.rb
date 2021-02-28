@@ -20,7 +20,7 @@ RSpec.describe CandidateJob, type: :model do
       candidate_jobs = CandidateJob.create!(candidate: candidate, job: job_itc, 
                                           message: '', wage:'' , beginning_date:'')
 
-      expect(candidate_jobs.status).to eq 'pending'
+      expect(candidate_jobs.status).to eq 'Pending'
     end
   end
 end

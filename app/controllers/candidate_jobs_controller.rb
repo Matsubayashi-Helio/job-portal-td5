@@ -4,27 +4,28 @@ class CandidateJobsController < ApplicationController
     # TODO Message must be obligatory
     
     def update
-        # puts params
+        puts params
         candidate_job = CandidateJob.find(params[:id])
         candidate_job.update!(candidate_job_params)
+
         
         if params[:reject]
-            candidate_job.rejected!
+            candidate_job.status = 'rejected'
         else
-            candidate_job.prop_send!
+            candidate_job.status = 'prop-sent'
         end
+        
+        candidate_job.save
+        redirect_to applicants_job_path(candidate_job.job)
 
-        candidate_job.save!
-        redirect_to applicants_job_path(candidate_job)
     end
 
-
-
-
-
     private
-
         def candidate_job_params
             params.require(:candidate_job).permit(:message, :wage, :beginning_date, :status)
         end
+
+        
+
+        
 end

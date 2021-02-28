@@ -1,7 +1,14 @@
 class MessagesController < ApplicationController
     def create
+
+        puts params
         cj = CandidateJob.find(params[:message][:candidate_job])
-        cj.update!(status: params[:candidate_job][:status])
+        # cj.update!(status: params[:candidate_job][:status])
+ 
+        cj.status = params[:message][:status]
+        # cj.test!(cj)
+        cj.save!
+
  
         msg = Message.new(candidate_job: cj , sender: params[:message][:sender], 
                         sent_message: params[:message][:sent_message], 
@@ -13,7 +20,10 @@ class MessagesController < ApplicationController
             msg.employee = current_employee
             redirect_to applicants_job_path(cj.job)
         end
+
         msg.save
+
+
     end
 
 

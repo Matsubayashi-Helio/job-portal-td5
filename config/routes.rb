@@ -41,8 +41,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :messages
+  resources :messages, only:[:create]
 
-  resources :candidate_jobs
+  resources :candidate_jobs, only:[:update]
 
 end

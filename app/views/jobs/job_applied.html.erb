@@ -3,16 +3,16 @@
 
 <h1>Acompanhe candidatura</h1>
 
-    <dl>Job:</dl>
+    <dl>Vaga:</dl>
     <dd><%= @job.job.title %></dd>
 
-    <dl>Description:</dl>
+    <dl>Descrição:</dl>
     <div><%= @job.job.description %></div>
 
-    <dl>Requirements:</dl>
+    <dl>Requisitos:</dl>
     <dd><%= @job.job.requirements %></dd>
 
-    <dl>Company:</dl>
+    <dl>Companhia:</dl>
     <dd><%= @job.job.company.name %></dd>
 
     <dl>Status:</dl>
@@ -20,38 +20,34 @@
 
     <h2>Feedback:</h2>
 
-    <dl>Message:</dl>
+    <dl>Mensagem:</dl>
     <% if @message.any? %>
-        <dd><%= @message.last.sent_message %></dd>
+        <% @message.each do |m| %>
+            <div><strong><%= m.sender %>:</strong> <%= m.sent_message %></div>
+        <% end %>
     <% end %>
 
-<% if @job.prop_send!%>
-    <dl>Wage:</dl>
+<% if @job.status = 'Proposta Enviada'%>
+    <dl>Remuneração:</dl>
     <dd><%= @job.wage %></dd>
 
-    <dl>Beginning_date:</dl>
+    <dl>Data de início:</dl>
     <dd><%= I18n.localize(@job.beginning_date, format: :date, default: '') %></dd>
-    <dd><%# @job.beginning_date %></dd>
 <% end %>
 
 <%= form_with model: Message.new do |f| %>
     <%= f.hidden_field :candidate_job, value: @job.id %>
     <%= f.hidden_field :sender, value: 'candidate' %>
-    <%= f.label :sent_message %>
-    <%= f.text_area :sent_message, size: "60x20" %>
-
-    <%= fields_for :candidate_job do |s| %>
-        <%= s.collection_radio_buttons :status, CandidateJob.statuses, :first, :first %>
-    <% end %>
-
-    <%= f.submit 'Submit' %>
-<% end %>
+    <%= f.label :sent_message, 'Mensagem'%>
+    <%= f.text_area :sent_message, size: "60x10" %>
 
 
-<%= form_with model: @job, url: candidate_job_path(@job), method: "patch" do |f| %>
     <%= f.label :status %>
-    <%= f.collection_radio_buttons :status, CandidateJob.statuses, :first, :first %>
+    <%= f.select :status, [["Aceitar Proposta", "Proposta Aceita"], 
+                        ["Rejeitar Proposta", "Proposta Rejeitada"], 
+                        ["Confirmar Data de Início", "Data de Início Confirmada"], 
+                        ["Rejeitar Data de Início", "Data de Início Rejeitada"]] %>
 
-    <%= f.submit %>
+    <%= f.submit 'Enviar Mensagem'%>
 <% end %>
 
