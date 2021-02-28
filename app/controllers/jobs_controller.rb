@@ -50,9 +50,20 @@ class JobsController < ApplicationController
             
         if job.inactive?
             # notice('Cannot apply for job')
+            # job.errors.add(:status, message: 'Cannot apply for job')
             redirect_to job, notice:'Cannot apply for jobs'
             return
         end
+
+
+        if job.date < Date.today
+            job.errors.add(:date, message: 'Data limite para aplicação ultrapassou.')
+            redirect_to job, notice: 'Data limite para aplicação ultrapassou.' and return
+        end
+
+
+
+
         CandidateJob.create!(candidate: candidate, job:job, status:'pending')
         redirect_to job_applied_candidate_job_path(candidate, job)
     end

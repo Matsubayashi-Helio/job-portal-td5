@@ -1,4 +1,15 @@
 <div><%= flash[:notice] %></div>
+<% if @job.errors.any? %>
+    <div class="alert">
+        <p>Não foi possível prosseguir com a ação.</p>
+        <p>Confira os erros abaixo:</p>
+        <ul>
+            <% @job.errors.each do |m|%>
+                <li><%= m.full_messages %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
 
 <dl>
     <dt>Title:</dt>
