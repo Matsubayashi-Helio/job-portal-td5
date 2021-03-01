@@ -13,6 +13,12 @@ class MessagesController < ApplicationController
         elsif params[:env_prop]
             cj.status = 'Proposta Enviada'
             cj.update(status: 'Proposta Enviada', wage: params[:message][:wage], beginning_date: params[:message][:beginning_date])
+        elsif params[:contratar]
+            cj.update(status: 'Candidato Contratado')
+            # puts cj.job.quantity + 5
+            cj.job.hire!
+            # puts cj.job.quantity
+
         else
             cj.status = params[:message][:status]
             cj.beginning_date = params[:message][:beginning_date]

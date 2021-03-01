@@ -49,16 +49,23 @@ class JobsController < ApplicationController
         job = Job.find(params[:id])
             
         if job.inactive?
-            # notice('Cannot apply for job')
-            # job.errors.add(:status, message: 'Cannot apply for job')
+            job.errors.add(:date, status: 'Cannot apply for jobs')
             redirect_to job, notice:'Cannot apply for jobs'
             return
         end
 
 
+        # TODO Errors.full_messages seems to not be working on show page. Look into it with more care
         if job.date < Date.today
             job.errors.add(:date, message: 'Data limite para aplicação ultrapassou.')
             redirect_to job, notice: 'Data limite para aplicação ultrapassou.' and return
+        end
+
+        if job.quantity == 0
+            job.errors.add(:quantity, message: 'Não é possível se candidatar! Limite de vagas foi atingido.')
+            
+            # puts job.errors.full_messages
+            redirect_to job, notice: 'Não é possível se candidatar! Limite de vagas foi atingido.' and return
         end
 
 

@@ -161,4 +161,31 @@ feature 'Candidate apply for a job' do
         expect(current_path).to eq job_path(job_itc)
         expect(page).to have_content('Data limite para aplicação ultrapassou.')
     end
+
+    scenario 'and cannot apply if quantity is zero' do
+        company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
+                                    social_network: 'twitter.com/itc', 
+                                    about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
+                                    address: 'Rua dos Santos, 84 - São Paulo-SP')
+        company_itc.cover.attach(io: File.open(Rails.root.join('public','logo','company_itc_logo.jfif')), filename: 'company_itc_logo.jfif')
+
+        job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
+                            wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
+                            quantity: 1, date:'31/12/2050', status: 'active', company: company_itc)
+        job_itc.hire!
+    
+        candidate = Candidate.create!(email: 'alan@email.com', password: '123456', 
+                                    first_name: 'Alan', last_name:'Santos', 
+                                    cpf: 15612367058, phone:164584652, 
+                                    bio:'Procurando oportunidade no mercado e com vontade de aprender.')
+
+        login_as(candidate, :scope => :candidate)
+        visit root_path
+        click_on 'Ver-vagas'
+        click_on 'IT support'
+        click_on 'Candidatar-se'
+
+        expect(current_path).to eq job_path(job_itc)
+        expect(page).to have_content('Não é possível se candidatar! Limite de vagas foi atingido.')
+    end
 end

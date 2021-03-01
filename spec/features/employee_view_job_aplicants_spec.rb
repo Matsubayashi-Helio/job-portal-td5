@@ -61,7 +61,7 @@ feature 'Employee view job aplicants' do
 
         job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
                             wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
-                            quantity: 2, date:'31/12/2050', status: 'inactive', company: company_itc)
+                            quantity: 2, date:'31/12/2050', status: 'active', company: company_itc)
 
 
 
@@ -104,7 +104,7 @@ feature 'Employee view job aplicants' do
 
         job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
                             wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
-                            quantity: 2, date:'31/12/2050', status: 'inactive', company: company_itc)
+                            quantity: 2, date:'31/12/2050', status: 'active', company: company_itc)
 
         candidate_to_be_rejected = Candidate.create!(email: 'alan@email.com', password: '123456', first_name: 'Alan', 
                                             last_name:'Santos', cpf: 15612367058, phone:164584652, 
@@ -147,7 +147,7 @@ feature 'Employee view job aplicants' do
 
         job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
                             wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
-                            quantity: 2, date:'31/12/2050', status: 'inactive', company: company_itc)
+                            quantity: 2, date:'31/12/2050', status: 'active', company: company_itc)
 
         candidate_prop_sent = Candidate.create!(email: 'maria@email.com', password: '123456', first_name: 'Maria', 
                                             last_name:'Silva', cpf: 45596090042, phone:153485648, 
@@ -179,4 +179,55 @@ feature 'Employee view job aplicants' do
         expect(candidate_jobs_prop_send.wage).to eq 2000
         expect(candidate_jobs_prop_send.beginning_date.to_default_s).to eq('2021-12-31')
     end
+
+    scenario 'and hire candidate' do
+        company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
+                                    social_network: 'twitter.com/itc', 
+                                    about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
+                                    address: 'Rua dos Santos, 84 - São Paulo-SP')
+        company_itc.cover.attach(io: File.open(Rails.root.join('public','logo','company_itc_logo.jfif')), filename: 'company_itc_logo.jfif')
+
+        job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
+                            wage:'3000', level: 'junior', requirements: 'Good with people, self-taught, proactive', 
+                            quantity: 2, date:'31/12/2050', status: 'active', company: company_itc)
+                            
+        candidate_prop_sent = Candidate.create!(email: 'pedro@email.com', password: '123456', 
+                            first_name: 'Pedro', last_name:'Santos', 
+                            cpf: 15612367058, phone:164584652, 
+                            bio:'Procurando oportunidade no mercado e com vontade de aprender.')
+
+        candidate_jobs_prop_send = CandidateJob.create!(candidate: candidate_prop_sent, job: job_itc, 
+                                                    status: 'Data de Início Confirmada', wage:'2000' , beginning_date:'01/04/2021')
+
+        employee = Employee.create!(email: 'maria@itc.com', password: '123456', first_name:'Maria', 
+                                    last_name:'Silva', company: company_itc, 
+                                    role: 'Coordenadora RH', admin: true)
+
+        Message.create!(candidate_job: candidate_jobs_prop_send, 
+                    sender: 'employee', employee: employee, 
+                    sent_message:'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms')
+
+        Message.create!(candidate_job: candidate_jobs_prop_send,
+                    sender: 'candidate', candidate: candidate_prop_sent,
+                    sent_message: 'Thak you for the opportunity, everything works great for me.')
+
+        login_as(employee, :scope => :employee)
+        visit root_path
+        click_on 'Ver-vagas'
+        click_on 'IT support'
+        click_on 'Analisar-candidaturas'
+        click_on 'Pedro'
+        fill_in 'Mensagem', with: 'Great! We will be sending the documents to formalize the contract. Excited to work with you!'
+        click_on 'Contratar'
+
+        message = Message.last
+        expect(Message.count).to eq 3
+        expect(message.sent_message).to eq 'Great! We will be sending the documents to formalize the contract. Excited to work with you!'
+        expect(current_path).to eq applicants_job_path(job_itc)
+        expect(candidate_jobs_prop_send.reload.status).to eq 'Candidato Contratado'
+        expect(candidate_jobs_prop_send.wage).to eq 2000
+        expect(candidate_jobs_prop_send.beginning_date.to_default_s).to eq('2021-04-01')
+        expect(job_itc.reload.quantity).to eq 1
+    end
+
 end
