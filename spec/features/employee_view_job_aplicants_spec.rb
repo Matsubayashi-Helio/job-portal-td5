@@ -124,19 +124,21 @@ feature 'Employee view job aplicants' do
         click_on 'Analisar-candidaturas'
         click_on 'Alan'
         fill_in 'Mensagem', with: 'Sorry to inform, but you do not have the requirements we are looking for at the moment.'
-        click_on 'Reject-applicant'
+        click_on 'Rejeitar'
 
+        message = Message.last
         expect(current_path).to eq applicants_job_path(candidate_to_be_rejected)
+        expect(Message.count).to eq 1
+        expect(message.sent_message).to eq 'Sorry to inform, but you do not have the requirements we are looking for at the moment.'
         expect(page).to have_content('Alan')
         expect(page).to have_content('alan@email.com')
         expect(page).to have_content('Procurando oportunidade no mercado e com vontade de aprender.')
-        expect(page).to have_content('rejected')
-        expect(candidate_jobs_to_be_rejected.reload.message).to eq 'Sorry to inform, but you do not have the requirements we are looking for at the moment.'
-        expect(candidate_jobs_to_be_rejected.status).to eq 'rejected'
+        expect(page).to have_content('Candidatura Rejeitada')
+        expect(candidate_jobs_to_be_rejected.reload.status).to eq 'Candidatura Rejeitada'
     end
 
     # TODO Change beginning_date from datetime to date
-    scenario 'and send proposal to the candidate' do
+    scenario 'and send a proposition to the candidate' do
         company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                     social_network: 'twitter.com/itc', 
                                     about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
@@ -165,13 +167,16 @@ feature 'Employee view job aplicants' do
         click_on 'Analisar-candidaturas'
         click_on 'Maria'
         fill_in 'Mensagem', with: 'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms'
-        fill_in 'Beginning date', with: '31/12/2021'
+        fill_in 'Data de início', with: '31/12/2021'
         fill_in 'Remuneração', with: '2000'
-        click_on 'Send-proposition'
+        click_on 'Enviar Proposta'
 
+        message = Message.last
+        expect(Message.count).to eq 1
+        expect(message.sent_message).to eq 'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms'
         expect(current_path).to eq applicants_job_path(job_itc)
-        expect(candidate_jobs_prop_send.reload.message).to eq 'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms'
-        expect(candidate_jobs_prop_send.status).to eq 'prop-sent'
+        expect(candidate_jobs_prop_send.reload.status).to eq 'Proposta Enviada'
         expect(candidate_jobs_prop_send.wage).to eq 2000
+        expect(candidate_jobs_prop_send.beginning_date.to_default_s).to eq('2021-12-31')
     end
 end

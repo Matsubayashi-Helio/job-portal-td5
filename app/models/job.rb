@@ -13,4 +13,5 @@ class Job < ApplicationRecord
       errors.add(:date, message: 'Data limite para aplicação ultrapassou.')
     end
   end
+
 end

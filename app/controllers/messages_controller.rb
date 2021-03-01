@@ -1,12 +1,22 @@
 class MessagesController < ApplicationController
+    
+    # TODO Could not update CandidateJob and create a new message the proper way. Search in more detail a way to do it.
     def create
 
-        puts params
+        # puts params
         cj = CandidateJob.find(params[:message][:candidate_job])
-        # cj.update!(status: params[:candidate_job][:status])
  
-        cj.status = params[:message][:status]
-        # cj.test!(cj)
+        
+
+        if params[:rejeitar]
+            cj.status = 'Candidatura Rejeitada'
+        elsif params[:env_prop]
+            cj.status = 'Proposta Enviada'
+            cj.update(status: 'Proposta Enviada', wage: params[:message][:wage], beginning_date: params[:message][:beginning_date])
+        else
+            cj.status = params[:message][:status]
+            cj.beginning_date = params[:message][:beginning_date]
+        end
         cj.save!
 
  

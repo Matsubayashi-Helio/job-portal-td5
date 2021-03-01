@@ -35,24 +35,24 @@
     <%= f.text_area :sent_message, size: "60x10" %>
 
     
-    <%= f.fields_for @candidate_jobs do |form| %>
+    <%# f.fields_for @candidate_jobs do |form| %>
         <div>
-            <%= form.label :wage %>
-            <%= form.number_field :wage %>
+            <%= f.label :wage, 'Remuneração' %>
+            <%= f.number_field :wage %>
         </div>
         <div>
-            <%= form.label :beginning_date %>
-            <%= form.date_field :beginning_date %>
+            <%= f.label :beginning_date, 'Data de início' %>
+            <%= f.date_field :beginning_date %>
         </div>
-    <% end %>
+    <%# end %>
     
     <div>
-    <%= f.label :status %>
-    <%= f.select :status, [["Enviar Proposta", "Proposta Enviada"], 
-                        ["Rejeitar Candidatura", "Candidatura Rejeitada"], 
-                        ["Contratar Candidato", "Candidato Contratado"]] %>
+    <%# f.label :status %>
+    <%# f.select :status, [["Enviar Proposta", "Proposta Enviada"], 
+                        ["Rejeitar Candidatura", "Candidatura Rejeitada"]] %>
     </div>
-    <%= f.submit 'Enviar Mensagem'%>
+    <%= f.submit 'Rejeitar', name: 'rejeitar' %>
+    <%= f.submit 'Enviar Proposta', name: 'env_prop' %>
 <% end %>
 
 
@@ -68,6 +68,13 @@
             <%# f.label :beginning_date %>
             <%# f.date_field :beginning_date %>
         </div>
+
+        <%# f.fields_for Message.new do |m| %>
+            <%# f.hidden_field :candidate_job, value: @candidate_jobs.id %>
+            <%# f.hidden_field :sender, value: 'employee' %>
+            <%# f.label :sent_message, 'Mensagem'%>
+            <%# f.text_area :sent_message, size: "60x10" %>
+        <%# end %>
 
         <%# f.submit 'Reject-applicant', name: 'reject' %>
         <%# f.submit 'Send-proposition' %>

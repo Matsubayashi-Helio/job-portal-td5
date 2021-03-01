@@ -41,6 +41,8 @@
     <%= f.label :sent_message, 'Mensagem'%>
     <%= f.text_area :sent_message, size: "60x10" %>
 
+    <%= f.label :beginning_date, 'Data de Início' %>
+    <%= f.date_field :beginning_date %>
 
     <%= f.label :status %>
     <%= f.select :status, [["Aceitar Proposta", "Proposta Aceita"], 
