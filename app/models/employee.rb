@@ -7,6 +7,7 @@ class Employee < ApplicationRecord
 
   # attr_accessor :first_name, :last_name, :role
   validates :first_name, :last_name, :role, :email, :password, presence: true
+  validates :email, uniqueness: { case_sensitive: false }
 
   def company_email
     email_provider = email

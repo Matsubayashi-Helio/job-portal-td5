@@ -6,4 +6,8 @@ class Candidate < ApplicationRecord
 
   has_many :candidate_jobs
   has_many :jobs, through: :candidate_jobs
+
+  validates :email, :first_name, :last_name, :cpf, :phone, :bio, presence: true
+  validates :email, :cpf, :phone, uniqueness: {case_sensitive: false}
+  validates :cpf, :phone, numericality: {only_integer: true}
 end

@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
     before_action :authenticate_employee!, only: [:new, :create, :edit, :update, :applicants]
-    before_action :authenticate_candidate!, only: [:apply]
+    before_action :authenticate_candidate!, only: [:apply, :job_applied]
 
     def index
         @jobs = Job.all
@@ -71,7 +71,7 @@ class JobsController < ApplicationController
 
 
 
-        CandidateJob.create!(candidate: candidate, job:job, status:'pending')
+        CandidateJob.create!(candidate: candidate, job:job)
         redirect_to job_applied_candidate_job_path(candidate, job)
     end
 

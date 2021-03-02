@@ -5,7 +5,7 @@ feature 'Employee login' do
         company = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                 social_network: 'twitter.com/itc', 
                                 about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
-                                address: 'Rua dos Santos, 84 - São Paulo-SP')
+                                address: 'Rua dos Santos, 84 - São Paulo-SP', email_provider: '@itc.com')
         employee = Employee.create!(email: 'ana@itc.com', password: '123456', first_name:'Ana', last_name:'Silva', company: company, role: 'Coordenadora RH', admin: true)
 
         visit root_path
@@ -26,7 +26,7 @@ feature 'Employee login' do
         company = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                 social_network: 'twitter.com/itc', 
                                 about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
-                                address: 'Rua dos Santos, 84 - São Paulo-SP')
+                                address: 'Rua dos Santos, 84 - São Paulo-SP', email_provider: '@itc.com')
         employee = Employee.create!(email: 'ana@itc.com', password: '123456', first_name:'Ana', last_name:'Silva', company: company, role: 'Coordenadora RH', admin: true)
 
         login_as employee

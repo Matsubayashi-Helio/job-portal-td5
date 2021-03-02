@@ -5,7 +5,7 @@ feature 'Employee view job aplicants' do
         company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                     social_network: 'twitter.com/itc', 
                                     about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
-                                    address: 'Rua dos Santos, 84 - São Paulo-SP')
+                                    address: 'Rua dos Santos, 84 - São Paulo-SP', email_provider: '@itc.com')
         company_itc.cover.attach(io: File.open(Rails.root.join('public','logo','company_itc_logo.jfif')), filename: 'company_itc_logo.jfif')
 
         job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
@@ -56,7 +56,7 @@ feature 'Employee view job aplicants' do
         company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                     social_network: 'twitter.com/itc', 
                                     about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
-                                    address: 'Rua dos Santos, 84 - São Paulo-SP')
+                                    address: 'Rua dos Santos, 84 - São Paulo-SP', email_provider: '@itc.com')
         company_itc.cover.attach(io: File.open(Rails.root.join('public','logo','company_itc_logo.jfif')), filename: 'company_itc_logo.jfif')
 
         job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
@@ -99,7 +99,7 @@ feature 'Employee view job aplicants' do
         company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                     social_network: 'twitter.com/itc', 
                                     about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
-                                    address: 'Rua dos Santos, 84 - São Paulo-SP')
+                                    address: 'Rua dos Santos, 84 - São Paulo-SP', email_provider: '@itc.com')
         company_itc.cover.attach(io: File.open(Rails.root.join('public','logo','company_itc_logo.jfif')), filename: 'company_itc_logo.jfif')
 
         job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
@@ -142,7 +142,7 @@ feature 'Employee view job aplicants' do
         company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                     social_network: 'twitter.com/itc', 
                                     about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
-                                    address: 'Rua dos Santos, 84 - São Paulo-SP')
+                                    address: 'Rua dos Santos, 84 - São Paulo-SP', email_provider: '@itc.com')
         company_itc.cover.attach(io: File.open(Rails.root.join('public','logo','company_itc_logo.jfif')), filename: 'company_itc_logo.jfif')
 
         job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
@@ -184,7 +184,7 @@ feature 'Employee view job aplicants' do
         company_itc = Company.create!(name: 'IT Consulting', cnpj: '13363706000106', site: 'www.itc.com', 
                                     social_network: 'twitter.com/itc', 
                                     about: 'IT Counsulting was created in 1984, as a way to make sure everyone is safe, by placing cameras that watch everything.',
-                                    address: 'Rua dos Santos, 84 - São Paulo-SP')
+                                    address: 'Rua dos Santos, 84 - São Paulo-SP', email_provider: '@itc.com')
         company_itc.cover.attach(io: File.open(Rails.root.join('public','logo','company_itc_logo.jfif')), filename: 'company_itc_logo.jfif')
 
         job_itc = Job.create!(title: 'IT support', description:'Will act as a front line man on repairs', 
