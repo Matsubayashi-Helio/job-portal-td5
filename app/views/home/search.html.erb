@@ -1,0 +1,28 @@
+<h1>Resultados da busca</h1>
+<% if @companies.any? or @jobs.any? %>
+<ul>
+    <% if @companies.any?%>
+        <h2 id="search-result-companies">Empresas</h2>
+        <% @companies.each do |c| %>
+            <div><%= link_to c.name, company_path(c)%>
+                <p><%= c.about %></p>
+                <p><%= c.site %></p>
+            </div>
+            <hr>
+        <% end %>
+    <% end %>
+
+    <% if @jobs.any?%>
+    <h2 id="search-result-jobs">Vagas</h2>
+    <% @jobs.each do |j| %>
+        <div><%= link_to j.title, job_path(j)%>
+            <p><%= j.description %></p>
+            <p>Data limite: <%= I18n.localize(j.date, format: :date) %> </p>
+        </div>
+        <hr>
+    <% end %>
+    <% end %>
+</ul>
+<% else %>
+<h2>Nenhum resultado correspondente a busca "<%= @search %>"</h2>
+<% end %>

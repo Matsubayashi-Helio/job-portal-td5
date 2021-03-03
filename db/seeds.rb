@@ -38,7 +38,7 @@ candidate = Candidate.create!(email: 'pedro@email.com', password: '123456', firs
 
 
 prop_sent_candidate_jobs = CandidateJob.create!(candidate: candidate, job: prop_sent_job_itc, 
-                                                status:'prop_send', wage:'2000', beginning_date:'31/12/2021')
+                                                status:'Proposta Enviada', wage:'2000', beginning_date:'31/12/2021')
 
 Message.create!(candidate_job: prop_sent_candidate_jobs, sender: 'employee', employee: employee, 
                 sent_message:'We really liked your profile, and it would be fantastic to have you with us. As already informed, the wage is around entry level. We are sending the details of the job with this message. Please confirm if you are ok with these terms')
